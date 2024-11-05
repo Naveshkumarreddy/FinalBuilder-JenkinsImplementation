@@ -1,16 +1,18 @@
-class LoginToRTC {
-    def loginToRTC(String scmPath, String scmUrl, String username, String password, String repositoryName) {
-        println 'Logging in to RTC...'
-        def command = "\"${scmPath}\\scm.exe\" login -r \"${scmUrl}\" -u ${username} -P ${password} -n ${repositoryName}"
+package com.example
+
+class LockWorkspace {
+    def lockWorkspace(String scmPath, String scmUrl, String username, String password, String workspaceName) {
+        println "Locking workspace: ${workspaceName}"
+        def command = "\"${scmPath}\\scm.exe\" workspace propertyset -r \"${scmUrl}\" -u ${username} -P ${password} ownedby Locked_For_Build ${workspaceName}"
         def process = command.execute()
         try {
             process.waitFor()
 
             if (process.exitValue() == 0) {
-                println 'Login successful.'
+                println "Workspace ${workspaceName} locked successfully."
             } else {
-                println "Login failed: ${process.errorStream.text}"
-                throw new RuntimeException("RTC login failed.")
+                println "Failed to lock workspace: ${process.errorStream.text}"
+                throw new RuntimeException("Failed to lock workspace.")
             }
         } catch (IOException e) {
             println "IOException occurred: ${e.message}"
