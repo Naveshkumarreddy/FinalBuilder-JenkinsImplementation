@@ -1,3 +1,5 @@
+package com.example
+
 class GenerateGUIHeaderFile {
     def generateHeaderFile(String viewPath) {
         println 'Generating GUI header file...'

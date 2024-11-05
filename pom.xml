@@ -40,7 +40,7 @@
                 </dependencies>
                 <configuration>
                     <scripts>
-                        <script>src/main/groovy/Main.groovy</script>
+                        <script>src/main/groovy/com.example.Main.groovy</script>
                     </scripts>
                 </configuration>
             </plugin>

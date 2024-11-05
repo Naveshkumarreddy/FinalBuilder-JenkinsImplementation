@@ -1,3 +1,5 @@
+package com.example
+
 class CheckReleaseVersionFormat {
     def checkReleaseVersionFormat(String viewPath) {
         println 'Checking release version format...'

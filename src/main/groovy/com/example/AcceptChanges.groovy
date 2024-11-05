@@ -1,16 +1,19 @@
-class LockWorkspace {
-    def lockWorkspace(String scmPath, String scmUrl, String username, String password, String workspaceName) {
-        println "Locking workspace: ${workspaceName}"
-        def command = "\"${scmPath}\\scm.exe\" workspace propertyset -r \"${scmUrl}\" -u ${username} -P ${password} ownedby Locked_For_Build ${workspaceName}"
+package com.example
+
+class AcceptChanges {
+    def acceptChanges(String scmPath, String scmUrl, String username, String password, String workspace, String stream) {
+        println "Accepting changes for Workspace: ${workspace}, Stream: ${stream}"
+        def command = "\"${scmPath}\\scm.exe\" accept -o -r \"${scmUrl}\" -u ${username} -P ${password} -N -s ${stream} -t ${workspace}"
         def process = command.execute()
+
         try {
             process.waitFor()
 
             if (process.exitValue() == 0) {
-                println "Workspace ${workspaceName} locked successfully."
+                println "Changes accepted for workspace ${workspace} from stream ${stream}."
             } else {
-                println "Failed to lock workspace: ${process.errorStream.text}"
-                throw new RuntimeException("Failed to lock workspace.")
+                println "Failed to accept changes: ${process.errorStream.text}"
+                throw new RuntimeException("Failed to accept changes.")
             }
         } catch (IOException e) {
             println "IOException occurred: ${e.message}"

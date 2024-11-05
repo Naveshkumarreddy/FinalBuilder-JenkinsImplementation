@@ -1,3 +1,5 @@
+package com.example
+
 class RunAllScripts {
 
     Properties properties = new Properties()

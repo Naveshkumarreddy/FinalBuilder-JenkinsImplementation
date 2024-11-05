@@ -1,3 +1,5 @@
+package com.example
+
 class CheckForConflicts {
     def checkForConflicts(String scmPath, String viewPath) {
         println 'Checking for local conflicts...'
